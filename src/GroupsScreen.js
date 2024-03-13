@@ -28,13 +28,13 @@ const Groups = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView style={style.container} scrollEnabled={true}>
-        {data.map(items => (
-          <View key={items.uid} style={style.userCard}>
-            <Image source={{uri: items.imageurl}} style={style.userImage} />
+        {data.map(item => (
+          <View key={item.uid} style={style.userCard}>
+            <Image source={{uri: item.imageurl}} style={style.userImage} />
             <TouchableOpacity onPress={onClick}>
               <View>
-                <Text style={style.userName}>{items.name}</Text>
-                <Text style={style.userMessage}>{items.message}</Text>
+                <Text style={style.userName}>{item.name}</Text>
+                <Text style={style.userMessage}>{item.message}</Text>
               </View>
             </TouchableOpacity>
           </View>

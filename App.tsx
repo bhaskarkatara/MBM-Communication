@@ -27,8 +27,8 @@ const App = () => {
                   justifyContent: 'space-between',
                   width: 60,
                 }}>
-                <Icons name="search" size={25} />
-                <Icons name="bars" size={25} />
+                <Icons name="search" size={23} />
+                <Icons name="bars" size={23} />
               </View>
             ),
             headerStyle: {

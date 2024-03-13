@@ -54,7 +54,7 @@ const LogInScreen = ({navigation}) => {
           style={styles.input}
           onChangeText={onChangeText}
           value={text}
-          placeholder="Enter your Id"
+          placeholder="Enter your Id :"
           keyboardType="phone-pad"
         />
 
