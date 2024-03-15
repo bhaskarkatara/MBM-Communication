@@ -1,5 +1,11 @@
 import React from 'react';
-import {Image, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  TextInput,
+  ToastAndroid,
+  TouchableOpacity,
+} from 'react-native';
 import {Text, View, SafeAreaView, Button} from 'react-native';
 import {useState} from 'react';
 
@@ -9,6 +15,10 @@ const LogInScreen = ({navigation}) => {
   const [number, onChangeNumber] = React.useState('');
   const [text, onChangeText] = React.useState('');
 
+  const onLogIn = () => {
+    ToastAndroid.show('LogIN Successfully', ToastAndroid.SHORT);
+    navigation.replace('mbmCommunication');
+  };
   return (
     <SafeAreaView style={styles.container}>
       {/* <View>
@@ -65,7 +75,7 @@ const LogInScreen = ({navigation}) => {
              Add 'replace' for removing navigation back
              Add 'navigation' for navigation between screens 
             */
-            onPress={() => navigation.replace('mbmCommunication')}
+            onPress={onLogIn}
           />
         </TouchableOpacity>
       </View>

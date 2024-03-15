@@ -1,0 +1,61 @@
+import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  Touchable,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {ToastAndroid} from 'react-native';
+
+export default function ProfileScreen({navigation}) {
+  const onLogOut = () => {
+    ToastAndroid.show('Logout Successfully', ToastAndroid.SHORT);
+    navigation.navigate('logInScreen');
+  };
+  return (
+    <View style={style.mainContainer}>
+      <View
+        style={{
+          height: 100,
+          width: 100,
+          borderRadius: 10,
+          borderWidth: 1,
+        }}></View>
+      <View style={style.container}>
+        <Text style={{color: '#000000', fontSize: 20}}>Name :- </Text>
+        <Text style={{color: '#000000', fontSize: 20}}>Roll NO:- </Text>
+        <Text style={{color: '#000000', fontSize: 20}}>Branch :- </Text>
+        <Text style={{color: '#000000', fontSize: 20}}>Year :- </Text>
+        <Text style={{color: '#000000', fontSize: 20}}>Date Of birth :- </Text>
+        <Text style={{color: '#000000', fontSize: 20}}>Mobile no :- </Text>
+        <Text style={{color: '#000000', fontSize: 20}}>Status :- </Text>
+      </View>
+
+      <TouchableOpacity
+        style={{paddingTop: 10, width: 150, height: 100}}
+        onPress={onLogOut}>
+        <Text style={{backgroundColor: '#600080', color: '#fff', fontSize: 40}}>
+          LOgOut
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const style = StyleSheet.create({
+  mainContainer: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    paddingTop: 20,
+  },
+  container: {
+    height: 250,
+    gap: 9,
+    paddingLeft: 10,
+    width: 300,
+    borderRadius: 10,
+    borderWidth: 1,
+  },
+});

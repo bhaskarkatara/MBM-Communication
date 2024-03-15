@@ -1,3 +1,4 @@
+// todo : add tags system
 import React, {useState, useEffect} from 'react';
 import {
   View,
@@ -8,8 +9,10 @@ import {
   StyleSheet,
   Touchable,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Alert,
 } from 'react-native';
+import {useRoute} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import data from '../src/Data.js';
 
@@ -40,22 +43,27 @@ const Groups = ({navigation}) => {
     if (isShow) {
       return (
         <View style={style.modalContainer}>
-          <Image source={isShow} style={style.largeImage} />
+          <TouchableWithoutFeedback onPress={onCancel}>
+            <View style={style.overlay} />
+          </TouchableWithoutFeedback>
+          <View style={style.imageContainer}>
+            <Image source={isShow} style={style.largeImage} />
+          </View>
+
+          <View style={{height: 1, width: 200, color: '#000000'}}></View>
         </View>
       );
     }
     return null;
   };
 
-  const onCancelUserImage = () => {
+  const onCancel = () => {
     setIsShow(null);
   };
+
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <ScrollView
-        onPress={() => onCancelUserImage}
-        style={style.container}
-        scrollEnabled={true}>
+    <SafeAreaView style={{flex: 1}} onPress={onCancel}>
+      <ScrollView style={style.container} scrollEnabled={true}>
         {data.map(item => (
           <View key={item.uid} style={style.userCard}>
             <TouchableOpacity onPress={() => onShowUserImage(item.uid)}>
@@ -84,6 +92,17 @@ const Groups = ({navigation}) => {
 export default Groups;
 
 const style = StyleSheet.create({
+  imageContainer: {
+    width: 300,
+    height: 300,
+    borderRadius: 10,
+    overflow: 'hidden',
+    zIndex: 2,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
   userCard: {
     flex: 1,
     flexDirection: 'row',
@@ -96,6 +115,7 @@ const style = StyleSheet.create({
   },
   modalContainer: {
     position: 'absolute',
+    // height: 400,
     top: 0,
     left: 0,
     right: 0,
