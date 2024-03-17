@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   logo: {
-    height: 200,
-    width: 200,
+    height: 150,
+    width: 150,
     resizeMode: 'contain',
   },
   lgnText: {
