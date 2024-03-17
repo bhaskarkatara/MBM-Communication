@@ -13,6 +13,10 @@ import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import data from '../src/Data.js';
 
+// todo FIx: stop scrool when user see the profile photo
+// todo Impl : search bar
+// todo FIx : back button, when user logout and wants to login again then the back navigation in
+// groups Sxreen should not displau
 const Groups = () => {
   const navigation = useNavigation();
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -20,16 +24,16 @@ const Groups = () => {
   const [selectedUser, setSelectedUser] = useState(null);
 
   const onClickToChatScreen = uid => {
-    setSelectedUser(data.find(user => user.uid === uid)); // Find the user data by uid
     setIsSubmitted(true);
+    setSelectedUser(data.find(user => user.uid === uid)); // Find the user data by uid
   };
 
   useEffect(() => {
-    if (isSubmitted && selectedUser) {
-      navigation.navigate('chatScreen', {user: selectedUser});
+    if (isSubmitted) {
       setIsSubmitted(false); // Reset the state after navigation
+      navigation.navigate('chatScreen', {user: selectedUser});
     }
-  }, [isSubmitted, navigation, selectedUser]);
+  }, [isSubmitted, navigation]);
 
   const onShowUserImage = uid => {
     const user = data.find(item => item.uid === uid);
@@ -67,7 +71,7 @@ const Groups = () => {
             <TouchableOpacity onPress={() => onShowUserImage(item.uid)}>
               <Image source={item.imageurl} style={styles.userImage} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={onClickToChatScreen(item.uid)}>
+            <TouchableOpacity onPress={() => onClickToChatScreen(item.uid)}>
               <View style={styles.userInfo}>
                 <Text style={styles.userName}>{item.name}</Text>
                 <Text style={styles.userMessage}>{item.message}</Text>
@@ -132,6 +136,10 @@ const styles = StyleSheet.create({
   userInfo: {
     flex: 1,
     justifyContent: 'center',
+    // borderRadius: 1,
+    // borderWidth: 2,
+    width: 250,
+    // height: 50,
   },
   userName: {
     fontSize: 16,

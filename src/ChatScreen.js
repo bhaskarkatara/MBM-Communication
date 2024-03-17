@@ -1,7 +1,11 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import {GiftedChat} from 'react-native-gifted-chat';
 import {useRoute} from '@react-navigation/native';
+import {TypingAnimation} from 'react-native-typing-animation';
 import data from '../src/Data.js';
+import {Image, View} from 'react-native';
+
+// todo Fea : add tags, vdos,images,documents,show tags,dlt msges,
 
 function ChatScreen({route}) {
   const {user} = route.params;
@@ -11,16 +15,17 @@ function ChatScreen({route}) {
     setMessages([
       {
         _id: 1,
-        text: 'Hello developer',
+        text: `Hello ${user.name}`,
         createdAt: new Date(),
         user: {
           _id: 2,
           name: 'React Native',
+
           avatar: user.imageurl,
         },
       },
     ]);
-  }, [user]);
+  }, []);
 
   const onSend = useCallback((messages = []) => {
     setMessages(previousMessages =>
