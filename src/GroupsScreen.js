@@ -1,56 +1,54 @@
-// todo : add tags system
 import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
-  Button,
-  ScrollView,
   Image,
   StyleSheet,
-  Touchable,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Alert,
+  ScrollView,
 } from 'react-native';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import data from '../src/Data.js';
 
-const Groups = ({navigation}) => {
+const Groups = () => {
+  const navigation = useNavigation();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isShow, setIsShow] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  const onClick = () => {
-    setIsSubmitted(value => !value);
+  const onClickToChatScreen = uid => {
+    setSelectedUser(data.find(user => user.uid === uid)); // Find the user data by uid
+    setIsSubmitted(true);
   };
-  // todo : check why after clicking one time ..not able to goes on chatScreen
-  // clicking double ,able to navigate on chat screen
+
   useEffect(() => {
-    if (isSubmitted === true) {
-      navigation.navigate('chatScreen');
+    if (isSubmitted && selectedUser) {
+      navigation.navigate('chatScreen', {user: selectedUser});
+      setIsSubmitted(false); // Reset the state after navigation
     }
-  }, [isSubmitted]);
+  }, [isSubmitted, navigation, selectedUser]);
+
   const onShowUserImage = uid => {
-    for (let i = 0; i < data.length; i++) {
-      if (uid == data[i].uid) {
-        setIsShow(data[i].imageurl);
-        break;
-      }
+    const user = data.find(item => item.uid === uid);
+    if (user) {
+      setIsShow(user.imageurl);
     }
   };
 
   const renderLargeImage = () => {
     if (isShow) {
       return (
-        <View style={style.modalContainer}>
+        <View style={styles.modalContainer}>
           <TouchableWithoutFeedback onPress={onCancel}>
-            <View style={style.overlay} />
+            <View style={styles.overlay} />
           </TouchableWithoutFeedback>
-          <View style={style.imageContainer}>
-            <Image source={isShow} style={style.largeImage} />
+          <View style={styles.imageContainer}>
+            <Image source={isShow} style={styles.largeImage} />
           </View>
-
-          <View style={{height: 1, width: 200, color: '#000000'}}></View>
+          <View style={styles.separator} />
         </View>
       );
     }
@@ -62,23 +60,17 @@ const Groups = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}} onPress={onCancel}>
-      <ScrollView style={style.container} scrollEnabled={true}>
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView style={styles.container}>
         {data.map(item => (
-          <View key={item.uid} style={style.userCard}>
+          <View key={item.uid} style={styles.userCard}>
             <TouchableOpacity onPress={() => onShowUserImage(item.uid)}>
-              <Image source={item.imageurl} style={style.userImage} />
+              <Image source={item.imageurl} style={styles.userImage} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={onClick}>
-              <View
-                style={{
-                  width: 305,
-                  height: 55,
-                }}>
-                <View>
-                  <Text style={style.userName}>{item.name}</Text>
-                  <Text style={style.userMessage}>{item.message}</Text>
-                </View>
+            <TouchableOpacity onPress={onClickToChatScreen(item.uid)}>
+              <View style={styles.userInfo}>
+                <Text style={styles.userName}>{item.name}</Text>
+                <Text style={styles.userMessage}>{item.message}</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -91,7 +83,7 @@ const Groups = ({navigation}) => {
 
 export default Groups;
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   imageContainer: {
     width: 300,
     height: 300,
@@ -104,18 +96,15 @@ const style = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   userCard: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 3,
+    marginBottom: 10,
     backgroundColor: '#8D3DAF',
-    padding: 4,
+    padding: 10,
     borderRadius: 14,
-    // gap: 1,
   },
   modalContainer: {
     position: 'absolute',
-    // height: 400,
     top: 0,
     left: 0,
     right: 0,
@@ -130,7 +119,7 @@ const style = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 16,
-    padding: 10,
+    paddingVertical: 10,
     flex: 1,
     marginBottom: 3,
   },
@@ -139,7 +128,10 @@ const style = StyleSheet.create({
     width: 60,
     borderRadius: 30,
     marginRight: 16,
-    marginRight: 10,
+  },
+  userInfo: {
+    flex: 1,
+    justifyContent: 'center',
   },
   userName: {
     fontSize: 16,
@@ -148,5 +140,10 @@ const style = StyleSheet.create({
   userMessage: {
     fontSize: 14,
     color: '#333',
+  },
+  separator: {
+    height: 1,
+    width: 200,
+    backgroundColor: '#000000',
   },
 });

@@ -1,7 +1,10 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import {GiftedChat} from 'react-native-gifted-chat';
+import {useRoute} from '@react-navigation/native';
+import data from '../src/Data.js';
 
-function ChatScreen() {
+function ChatScreen({route}) {
+  const {user} = route.params;
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -13,11 +16,11 @@ function ChatScreen() {
         user: {
           _id: 2,
           name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
+          avatar: user.imageurl,
         },
       },
     ]);
-  }, []);
+  }, [user]);
 
   const onSend = useCallback((messages = []) => {
     setMessages(previousMessages =>
