@@ -35,7 +35,7 @@ const data = [
     uid: 5,
     name: 'Sachin ',
     imageurl: imag5,
-    message: 'mai chutiya hu',
+    message: 'mai accha insan  hu',
   },
   {
     uid: 6,

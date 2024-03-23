@@ -9,14 +9,14 @@ import {
   Alert,
   ScrollView,
 } from 'react-native';
+// import {Icon} from 'react-native-vector-icons/Icon.js';
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import data from '../src/Data.js';
+import Icons from 'react-native-vector-icons/FontAwesome';
 
 // todo FIx: stop scrool when user see the profile photo
 // todo Impl : search bar
-// todo FIx : back button, when user logout and wants to login again then the back navigation in
-// groups Sxreen should not displau
 const Groups = () => {
   const navigation = useNavigation();
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -51,6 +51,9 @@ const Groups = () => {
           </TouchableWithoutFeedback>
           <View style={styles.imageContainer}>
             <Image source={isShow} style={styles.largeImage} />
+            <TouchableOpacity>
+              <Icons name="" size={23} color="#fff" />
+            </TouchableOpacity>
           </View>
           <View style={styles.separator} />
         </View>
@@ -90,7 +93,9 @@ export default Groups;
 const styles = StyleSheet.create({
   imageContainer: {
     width: 300,
-    height: 300,
+    height: 330,
+    borderWidth: 2,
+    borderColor: '#fff',
     borderRadius: 10,
     overflow: 'hidden',
     zIndex: 2,
@@ -105,6 +110,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: '#8D3DAF',
     padding: 10,
+    // borderWidth: 2,
     borderRadius: 14,
   },
   modalContainer: {
@@ -120,6 +126,8 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
     borderRadius: 10,
+    // borderWidth: 3,
+    borderColor: '#fff',
   },
   container: {
     paddingHorizontal: 16,

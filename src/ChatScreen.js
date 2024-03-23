@@ -7,7 +7,7 @@ import {Image, View} from 'react-native';
 
 // todo Fea : add tags, vdos,images,documents,show tags,dlt msges,
 
-function ChatScreen({route}) {
+function ChatScreen({route, navigation}) {
   const {user} = route.params;
   const [messages, setMessages] = useState([]);
 
@@ -15,6 +15,7 @@ function ChatScreen({route}) {
     setMessages([
       {
         _id: 1,
+        title: '${user.name}',
         text: `Hello ${user.name}`,
         createdAt: new Date(),
         user: {
@@ -26,7 +27,7 @@ function ChatScreen({route}) {
       },
     ]);
   }, []);
-
+  // navigation.setH
   const onSend = useCallback((messages = []) => {
     setMessages(previousMessages =>
       GiftedChat.append(previousMessages, messages),

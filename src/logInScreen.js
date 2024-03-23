@@ -136,9 +136,11 @@ const styles = StyleSheet.create({
   logoContainer: {
     paddingVertical: 20,
   },
+
   logo: {
     height: 150,
     width: 150,
+    borderRadius: 35,
     resizeMode: 'contain',
   },
   lgnText: {
