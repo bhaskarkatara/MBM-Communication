@@ -39,7 +39,7 @@ const data = [
   },
   {
     uid: 6,
-    name: 'namana katara',
+    name: 'naman katara',
     imageurl: imag1,
     message: 'cool boy katara',
   },

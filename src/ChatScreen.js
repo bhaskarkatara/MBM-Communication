@@ -1,11 +1,9 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {GiftedChat} from 'react-native-gifted-chat';
+import {GiftedChat, Bubble, Send} from 'react-native-gifted-chat';
 import {useRoute} from '@react-navigation/native';
-import {TypingAnimation} from 'react-native-typing-animation';
-import data from '../src/Data.js';
-import {Image, View} from 'react-native';
-
-// todo Fea : add tags, vdos,images,documents,show tags,dlt msges,
+import {Image, ImageBackground, View} from 'react-native';
+import sendImag from '../assests/send.jpg';
+import bgImag from '../assests/bg.jpg';
 
 function ChatScreen({route, navigation}) {
   const {user} = route.params;
@@ -15,33 +13,61 @@ function ChatScreen({route, navigation}) {
     setMessages([
       {
         _id: 1,
-        title: '${user.name}',
+        title: `${user.name}`,
         text: `Hello ${user.name}`,
         createdAt: new Date(),
         user: {
           _id: 2,
           name: 'React Native',
-
           avatar: user.imageurl,
         },
       },
     ]);
   }, []);
-  // navigation.setH
+
   const onSend = useCallback((messages = []) => {
     setMessages(previousMessages =>
       GiftedChat.append(previousMessages, messages),
     );
   }, []);
 
+  const renderBubble = props => {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: '#1c2e50', // Your outgoing message bubble color
+          },
+          left: {
+            backgroundColor: '#D3D3D3', // Your incoming message bubble color
+          },
+        }}
+      />
+    );
+  };
+
+  // add custom send button
+  const renderSend = props => {
+    return (
+      <Send {...props}>
+        <View style={{marginRight: 10, marginBottom: 10}}>
+          <Image source={sendImag} style={{width: 30, height: 30}} />
+        </View>
+      </Send>
+    );
+  };
+
   return (
-    <GiftedChat
-      messages={messages}
-      onSend={messages => onSend(messages)}
-      user={{
-        _id: 1,
-      }}
-    />
+    <ImageBackground source={bgImag} style={{flex: 1}}>
+      <GiftedChat
+        messages={messages}
+        onSend={messages => onSend(messages)}
+        user={{_id: 1}}
+        renderBubble={renderBubble}
+        renderSend={renderSend}
+      />
+    </ImageBackground>
   );
 }
 

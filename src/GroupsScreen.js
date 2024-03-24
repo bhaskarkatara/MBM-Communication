@@ -22,6 +22,7 @@ const Groups = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isShow, setIsShow] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [isScrollEnabled, setIsScrollEnabled] = useState(true);
 
   const onClickToChatScreen = uid => {
     setIsSubmitted(true);
@@ -39,6 +40,7 @@ const Groups = () => {
     const user = data.find(item => item.uid === uid);
     if (user) {
       setIsShow(user.imageurl);
+      setIsScrollEnabled(false); // Disable scroll when showing large image
     }
   };
 
@@ -51,6 +53,19 @@ const Groups = () => {
           </TouchableWithoutFeedback>
           <View style={styles.imageContainer}>
             <Image source={isShow} style={styles.largeImage} />
+            {/* <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('chatScreen', {user: selectedUser});
+              }}>
+              <Text
+                style={{
+                  color: '#fff',
+                  fontStyle: 'italic',
+                  fontFamily: 'bold',
+                }}>
+                Go to Chat
+              </Text>
+            </TouchableOpacity> */}
             <TouchableOpacity>
               <Icons name="" size={23} color="#fff" />
             </TouchableOpacity>
@@ -68,7 +83,8 @@ const Groups = () => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <ScrollView style={styles.container}>
+      {/* {isScrollEnabled ?  : */}
+      <ScrollView style={styles.container} scrollEnabled={isScrollEnabled}>
         {data.map(item => (
           <View key={item.uid} style={styles.userCard}>
             <TouchableOpacity onPress={() => onShowUserImage(item.uid)}>
@@ -108,7 +124,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
-    backgroundColor: '#8D3DAF',
+    // backgroundColor: '#8D3DAF',
     padding: 10,
     // borderWidth: 2,
     borderRadius: 14,
@@ -136,8 +152,11 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   userImage: {
-    height: 60,
-    width: 60,
+    height: 50,
+    width: 50,
+    // position: 'relative',
+    alignContent: 'center',
+    justifyContent: 'center',
     borderRadius: 30,
     marginRight: 16,
   },
@@ -152,6 +171,7 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#000000',
   },
   userMessage: {
     fontSize: 14,
