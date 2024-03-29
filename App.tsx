@@ -5,7 +5,7 @@ import LogInScreen from './src/logInScreen';
 import Groups from './src/GroupsScreen';
 import ChatScreen from './src/ChatScreen';
 import Icons from 'react-native-vector-icons/FontAwesome';
-import {View, TouchableOpacity, StatusBar} from 'react-native';
+import {View, TouchableOpacity, StatusBar, ToastAndroid} from 'react-native';
 import ProfileScreen from './src/ProfileScreen';
 import {useRoute} from '@react-navigation/native';
 
@@ -54,7 +54,17 @@ const App = () => {
                   justifyContent: 'space-between',
                   width: 60,
                 }}>
-                <Icons name="search" size={23} color="#fff" />
+                <Icons
+                  name="search"
+                  size={23}
+                  color="#fff"
+                  onPress={() => {
+                    ToastAndroid.show(
+                      'Waiting for Implement',
+                      ToastAndroid.SHORT,
+                    );
+                  }}
+                />
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate('Profile');

@@ -56,6 +56,8 @@ const LogInScreen = ({navigation}) => {
           onChangeText={onChangeNumber}
           value={number}
           maxLength={10}
+          mode="outlined"
+          label="Mobile No."
           placeholder="Enter Mobile Number"
           keyboardType="phone-pad"
         />

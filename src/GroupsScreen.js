@@ -15,7 +15,6 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import data from '../src/Data.js';
 import Icons from 'react-native-vector-icons/FontAwesome';
 
-// todo FIx: stop scrool when user see the profile photo
 // todo Impl : search bar
 const Groups = () => {
   const navigation = useNavigation();
@@ -66,9 +65,9 @@ const Groups = () => {
                 Go to Chat
               </Text>
             </TouchableOpacity> */}
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <Icons name="" size={23} color="#fff" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View style={styles.separator} />
         </View>
@@ -79,6 +78,7 @@ const Groups = () => {
 
   const onCancel = () => {
     setIsShow(null);
+    setIsScrollEnabled(true);
   };
 
   return (
