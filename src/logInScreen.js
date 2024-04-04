@@ -1,13 +1,15 @@
 import React from 'react';
 import {
   Image,
+  ScrollView,
   StyleSheet,
   TextInput,
   ToastAndroid,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import {Text, View, SafeAreaView, Button} from 'react-native';
-import {useState} from 'react';
+
+import {Button, Text, SafeAreaView} from 'react-native';
 
 const mbmLogo = require('../assests/mbmLogo.png');
 
@@ -19,68 +21,61 @@ const LogInScreen = ({navigation}) => {
     ToastAndroid.show('LogIN Successfully', ToastAndroid.SHORT);
     navigation.replace('mbmCommunication');
   };
+
   return (
     <SafeAreaView style={styles.container}>
-      {/* <View>
-        <Text style={styles.lgnText}>LogIn Screen</Text>
-      </View> */}
-      <View style={styles.mainContainer}>
-        <View style={styles.headMbm}>
-          <Text style={styles.textMbm}>Welcome to</Text>
-        </View>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.mainContainer}>
+          <View style={styles.headMbm}>
+            <Text style={styles.textMbm}>Welcome to</Text>
+          </View>
 
-        <View style={styles.headmbmCom}>
-          <Text style={styles.headingmbmCom}>MBM-Communication</Text>
-        </View>
+          <View style={styles.headmbmCom}>
+            <Text style={styles.headingmbmCom}>MBM-Communication</Text>
+          </View>
 
-        <View style={styles.logoContainer}>
-          <Image source={mbmLogo} style={styles.logo} />
-        </View>
+          <View style={styles.logoContainer}>
+            <Image source={mbmLogo} style={styles.logo} />
+          </View>
 
-        <View style={styles.panelContainer}>
-          <TouchableOpacity style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>Student</Text>
-          </TouchableOpacity>
+          <View style={styles.panelContainer}>
+            <TouchableOpacity style={styles.buttonContainer}>
+              <Text style={styles.buttonText}>Student</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>Teacher</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer}>
+              <Text style={styles.buttonText}>Teacher</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>Admin</Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity style={styles.buttonContainer}>
+              <Text style={styles.buttonText}>Admin</Text>
+            </TouchableOpacity>
+          </View>
 
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeNumber}
-          value={number}
-          maxLength={10}
-          mode="outlined"
-          label="Mobile No."
-          placeholder="Enter Mobile Number"
-          keyboardType="phone-pad"
-        />
-
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          value={text}
-          placeholder="Enter your Id :"
-          keyboardType="phone-pad"
-        />
-
-        <TouchableOpacity style={styles.buttonText}>
-          <Button
-            title="LogIn"
-            /* 
-             Add 'replace' for removing navigation back
-             Add 'navigation' for navigation between screens 
-            */
-            onPress={onLogIn}
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeNumber}
+            value={number}
+            maxLength={10}
+            mode="outlined"
+            label="Mobile No."
+            placeholder="Enter Mobile Number"
+            keyboardType="phone-pad"
           />
-        </TouchableOpacity>
-      </View>
+
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeText}
+            value={text}
+            placeholder="Enter your Id :"
+            keyboardType="phone-pad"
+          />
+
+          <TouchableOpacity style={styles.buttonText}>
+            <Button title="LogIn" onPress={onLogIn} />
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -91,6 +86,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#1c2e50',
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
   },
   headmbmCom: {
     flexDirection: 'row',
@@ -138,7 +137,6 @@ const styles = StyleSheet.create({
   logoContainer: {
     paddingVertical: 20,
   },
-
   logo: {
     height: 150,
     width: 150,
