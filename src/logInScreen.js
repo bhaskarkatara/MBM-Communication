@@ -16,7 +16,7 @@ const mbmLogo = require('../assests/mbmLogo.png');
 const LogInScreen = ({navigation}) => {
   const [number, onChangeNumber] = React.useState('');
   const [text, onChangeText] = React.useState('');
-
+  // const [role, setRole] = React.useState();
   const onLogIn = () => {
     ToastAndroid.show('LogIN Successfully', ToastAndroid.SHORT);
     navigation.replace('mbmCommunication');
@@ -38,19 +38,31 @@ const LogInScreen = ({navigation}) => {
             <Image source={mbmLogo} style={styles.logo} />
           </View>
 
-          <View style={styles.panelContainer}>
-            <TouchableOpacity style={styles.buttonContainer}>
+          {/* <View style={styles.panelContainer}>
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={() => {
+                setRole('student');
+              }}>
               <Text style={styles.buttonText}>Student</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={() => {
+                setRole('teacher');
+              }}>
               <Text style={styles.buttonText}>Teacher</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={() => {
+                setRole('admin');
+              }}>
               <Text style={styles.buttonText}>Admin</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
 
           <TextInput
             style={styles.input}
@@ -70,6 +82,52 @@ const LogInScreen = ({navigation}) => {
             placeholder="Enter your Id :"
             keyboardType="phone-pad"
           />
+
+          {/* {role === 'teacher' && (
+            <>
+              <TextInput
+                style={styles.input}
+                // onChangeText={onChangeTeacherNumber}
+                // value={teacherNumber}
+                maxLength={10}
+                mode="outlined"
+                label="Mobile No."
+                placeholder="Enter Teacher Mobile Number"
+                keyboardType="phone-pad"
+              />
+
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeText}
+                // value={text}
+                placeholder="Enter Teacher Id :"
+                keyboardType="phone-pad"
+              />
+            </>
+          )}
+
+          {role === 'admin' && (
+            <>
+              <TextInput
+                style={styles.input}
+                // onChangeText={onChangeAdminNumber}
+                // value={adminNumber}
+                maxLength={10}
+                mode="outlined"
+                label="Mobile No."
+                placeholder="Enter Admin Mobile Number"
+                keyboardType="phone-pad"
+              />
+
+              <TextInput
+                style={styles.input}
+                // onChangeText={onChangeText}
+                // value={text}
+                placeholder="Enter Admin Id :"
+                keyboardType="phone-pad"
+              />
+            </>
+          )} */}
 
           <TouchableOpacity style={styles.buttonText}>
             <Button title="LogIn" onPress={onLogIn} />

@@ -9,19 +9,27 @@ import {
   TouchableOpacity,
   View,
   ToastAndroid,
+  StyleSheet,
 } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import sendImag from '../assests/send.jpg';
 import bgImag from '../assests/bg.jpg';
 import Toast from 'react-native-toast-message';
+import {Icon} from 'react-native-vector-icons/Icon';
+import Icons from 'react-native-vector-icons/FontAwesome';
+import Cross from 'react-native-vector-icons/Entypo';
 
 function ChatScreen({route, navigation}) {
   const {user} = route.params;
   const [messages, setMessages] = useState([]);
   const [customTag, setCustomTag] = useState(false);
-  const tagInputRef = useRef(null);
+  // const tagInputRef = useRef(null);
   const [tag, setTag] = useState('');
+  const [displayOptions, setDisplayOptions] = useState(false);
 
+  const toggleOptions = () => {
+    setDisplayOptions(prevDisplayOptions => !prevDisplayOptions);
+  };
   useEffect(() => {
     setMessages([
       {
@@ -38,6 +46,56 @@ function ChatScreen({route, navigation}) {
       },
     ]);
   }, []);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Cross name="cross" size={23} color="#fff" onPress={toggleOptions} />
+      ),
+    });
+  }, []);
+
+  const renderOptions = () => {
+    if (displayOptions) {
+      console.log('idhar bhi aaya render m');
+      return (
+        <View style={styles.renderOPtions}>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              color: '#000000',
+              marginBottom: 15,
+              marginTop: 3,
+            }}>
+            {' '}
+            UNSUBSCRIBE
+          </Text>
+          <Text
+            style={{fontWeight: 'bold', color: '#000000', marginBottom: 17}}>
+            {' '}
+            MEDIA
+          </Text>
+          <Text
+            style={{fontWeight: 'bold', color: '#000000', marginBottom: 17}}>
+            {' '}
+            MESSAGES
+          </Text>
+          <Text
+            style={{fontWeight: 'bold', color: '#000000', marginBottom: 17}}>
+            {' '}
+            MORE
+          </Text>
+          <Text
+            style={{fontWeight: 'bold', color: '#000000', marginBottom: 17}}>
+            {' '}
+            SETTING
+          </Text>
+        </View>
+      );
+    }
+    // setDisplayOptions(!displayOptions);
+    return null;
+  };
 
   const onSend = useCallback((messages = []) => {
     // messages[0].tag = tag;
@@ -111,7 +169,8 @@ function ChatScreen({route, navigation}) {
       return (
         <View style={{backgroundColor: '#fff', padding: 5}}>
           <TextInput
-            ref={tagInputRef}
+            // ref={tagInputRef}
+            autoFocus
             placeholder="Enter tag"
             onChangeText={text => setTag(text)}
             style={{
@@ -129,25 +188,13 @@ function ChatScreen({route, navigation}) {
 
   const handleAddCustomTag = () => {};
 
-  useEffect(() => {
-    if (customTag && tagInputRef.current) {
-      tagInputRef.current.focus();
-    }
-  }, [customTag]);
-
   const optionsForMessage = message => {
-    // console.log(message.tag);
     const options = ['Copy Text', 'Cancel', message.tag];
-    // message[0] = ''; //reset tags for second msg
-    // console.log(message.tag);
-    // if (message.tag && message.tag.length > 0) {
-    //   options.splice(1, 0, ...message.tag.map(tag => `Tag: ${tag}`));
-    // }
-    // console.log('tag gya ', options);
     return options;
   };
   return (
     <ImageBackground source={bgImag} style={{flex: 1}}>
+      {renderOptions()}
       <GiftedChat
         messages={messages}
         onSend={messages => {
@@ -207,3 +254,18 @@ function ChatScreen({route, navigation}) {
 }
 
 export default ChatScreen;
+const styles = StyleSheet.create({
+  renderOPtions: {
+    height: 200,
+    width: 150,
+    borderWidth: 1,
+    marginLeft: 200,
+    borderColor: '#fff',
+    borderRadius: 20,
+    backgroundColor: '#fff',
+    marginTop: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    alignContent: 'center',
+  },
+});

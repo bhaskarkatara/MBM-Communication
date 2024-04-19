@@ -47,32 +47,7 @@ const App = () => {
           component={Groups}
           options={({navigation}) => ({
             title: 'MBM-Communication',
-            headerRight: () => (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  width: 60,
-                }}>
-                <Icons
-                  name="search"
-                  size={23}
-                  color="#fff"
-                  onPress={() => {
-                    ToastAndroid.show(
-                      'Waiting for Implement',
-                      ToastAndroid.SHORT,
-                    );
-                  }}
-                />
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('Profile');
-                  }}>
-                  <Icons name="bars" size={23} color="#fff" />
-                </TouchableOpacity>
-              </View>
-            ),
+
             headerStyle: {
               backgroundColor: '#1c2e50',
             },
@@ -81,7 +56,7 @@ const App = () => {
             headerTitleStyle: {
               fontWeight: 'bold',
             },
-            // StatusBar configuration for mbmCommunication screen
+            // StatusBar configuration
             statusBarStyle: 'light-content',
             statusBarBackgroundColor: '#1c2e50',
           })}

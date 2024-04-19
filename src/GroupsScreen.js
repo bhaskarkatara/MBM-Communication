@@ -12,8 +12,11 @@ import {
 // import {Icon} from 'react-native-vector-icons/Icon.js';
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import data from '../src/Data.js';
+import Data from '../src/Data.js';
 import Icons from 'react-native-vector-icons/FontAwesome';
+import {ToastAndroid} from 'react-native';
+// import {SearchBar} from 'react-native-screens';
+import SearchBar from '../src/SearchBar.js';
 
 // todo Impl : search bar
 const Groups = () => {
@@ -22,6 +25,36 @@ const Groups = () => {
   const [isShow, setIsShow] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isScrollEnabled, setIsScrollEnabled] = useState(true);
+
+  const [data, setData] = useState(Data);
+
+  useEffect(() => {
+    navigation.setOptions({
+      // title:
+      headerRight: () => (
+        <View style={styles.headerRight}>
+          <SearchBar setData={setData} />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Profile');
+            }}>
+            <Icons
+              name="bars"
+              size={23}
+              color="#fff"
+              style={{
+                justifyContent: 'center',
+                alignContent: 'center',
+                marginTop: 15,
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      ),
+    });
+
+    setData(data);
+  }, []);
 
   const onClickToChatScreen = uid => {
     setIsSubmitted(true);
@@ -107,6 +140,13 @@ const Groups = () => {
 export default Groups;
 
 const styles = StyleSheet.create({
+  headerRight: {
+    // style={{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    // width: 400,
+    // }}>
+  },
   imageContainer: {
     width: 300,
     height: 330,

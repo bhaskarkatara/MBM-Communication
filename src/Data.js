@@ -9,6 +9,7 @@ const data = [
     name: 'Bhaskar',
     imageurl: imag2, // todo add images path
     message: 'hlo i am bhaskar katara',
+    Tag: 'tag',
   },
 
   {
