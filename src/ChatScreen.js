@@ -11,6 +11,9 @@ import {
   ToastAndroid,
   StyleSheet,
 } from 'react-native';
+import hasTagImg from '../assests/tag.jpg';
+import inputAll from '../assests/inputs.png';
+
 import Clipboard from '@react-native-clipboard/clipboard';
 import sendImag from '../assests/send.jpg';
 import bgImag from '../assests/bg.jpg';
@@ -18,18 +21,26 @@ import Toast from 'react-native-toast-message';
 import {Icon} from 'react-native-vector-icons/Icon';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import Cross from 'react-native-vector-icons/Entypo';
+import {options} from '../src/optionsData';
+import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
+// import {
+//   Menu,
+//   MenuProvider,
+//   MenuOptions,
+//   MenuOption,
+//   MenuTrigger,
+// } from 'react-native-popup-menu';
 
 function ChatScreen({route, navigation}) {
   const {user} = route.params;
   const [messages, setMessages] = useState([]);
   const [customTag, setCustomTag] = useState(false);
-  // const tagInputRef = useRef(null);
   const [tag, setTag] = useState('');
-  const [displayOptions, setDisplayOptions] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-  const toggleOptions = () => {
-    setDisplayOptions(prevDisplayOptions => !prevDisplayOptions);
-  };
+  const hideMenu = () => setVisible(false);
+
+  const showMenu = () => setVisible(true);
   useEffect(() => {
     setMessages([
       {
@@ -47,56 +58,6 @@ function ChatScreen({route, navigation}) {
     ]);
   }, []);
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Cross name="cross" size={23} color="#fff" onPress={toggleOptions} />
-      ),
-    });
-  }, []);
-
-  const renderOptions = () => {
-    if (displayOptions) {
-      console.log('idhar bhi aaya render m');
-      return (
-        <View style={styles.renderOPtions}>
-          <Text
-            style={{
-              fontWeight: 'bold',
-              color: '#000000',
-              marginBottom: 15,
-              marginTop: 3,
-            }}>
-            {' '}
-            UNSUBSCRIBE
-          </Text>
-          <Text
-            style={{fontWeight: 'bold', color: '#000000', marginBottom: 17}}>
-            {' '}
-            MEDIA
-          </Text>
-          <Text
-            style={{fontWeight: 'bold', color: '#000000', marginBottom: 17}}>
-            {' '}
-            MESSAGES
-          </Text>
-          <Text
-            style={{fontWeight: 'bold', color: '#000000', marginBottom: 17}}>
-            {' '}
-            MORE
-          </Text>
-          <Text
-            style={{fontWeight: 'bold', color: '#000000', marginBottom: 17}}>
-            {' '}
-            SETTING
-          </Text>
-        </View>
-      );
-    }
-    // setDisplayOptions(!displayOptions);
-    return null;
-  };
-
   const onSend = useCallback((messages = []) => {
     // messages[0].tag = tag;
     console.log(messages);
@@ -109,6 +70,35 @@ function ChatScreen({route, navigation}) {
     setCustomTag(false);
   }, []);
 
+  // useEffect(() => {
+  navigation.setOptions({
+    headerRight: () => {
+      return (
+        <View
+          style={{
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Menu
+            visible={visible}
+            anchor={
+              <Icons name="bars" size={23} color="#fff" onPress={showMenu} />
+            }
+            onRequestClose={hideMenu}>
+            <MenuItem onPress={hideMenu}>UnSubscribe</MenuItem>
+            <MenuDivider />
+            <MenuItem onPress={hideMenu}>Message</MenuItem>
+            <MenuDivider />
+            <MenuItem disabled>Lock</MenuItem>
+            <MenuDivider />
+            <MenuItem onPress={hideMenu}>Setting</MenuItem>
+          </Menu>
+        </View>
+      );
+    },
+  });
+  // }, []);
   const renderBubble = props => {
     return (
       <Bubble
@@ -146,11 +136,12 @@ function ChatScreen({route, navigation}) {
           }}>
           <View
             style={{
-              marginRight: 10,
+              marginRight: 5,
               alignItems: 'center',
               justifyContent: 'center',
+              flexDirection: 'row',
             }}>
-            <Text style={{color: '#000000'}}>Add tags</Text>
+            <Image source={hasTagImg} style={{height: 30, width: 30}} />
           </View>
         </TouchableOpacity>
 
@@ -194,7 +185,6 @@ function ChatScreen({route, navigation}) {
   };
   return (
     <ImageBackground source={bgImag} style={{flex: 1}}>
-      {renderOptions()}
       <GiftedChat
         messages={messages}
         onSend={messages => {
@@ -254,18 +244,4 @@ function ChatScreen({route, navigation}) {
 }
 
 export default ChatScreen;
-const styles = StyleSheet.create({
-  renderOPtions: {
-    height: 200,
-    width: 150,
-    borderWidth: 1,
-    marginLeft: 200,
-    borderColor: '#fff',
-    borderRadius: 20,
-    backgroundColor: '#fff',
-    marginTop: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    alignContent: 'center',
-  },
-});
+const styles = StyleSheet.create({});

@@ -83,52 +83,6 @@ const LogInScreen = ({navigation}) => {
             keyboardType="phone-pad"
           />
 
-          {/* {role === 'teacher' && (
-            <>
-              <TextInput
-                style={styles.input}
-                // onChangeText={onChangeTeacherNumber}
-                // value={teacherNumber}
-                maxLength={10}
-                mode="outlined"
-                label="Mobile No."
-                placeholder="Enter Teacher Mobile Number"
-                keyboardType="phone-pad"
-              />
-
-              <TextInput
-                style={styles.input}
-                onChangeText={onChangeText}
-                // value={text}
-                placeholder="Enter Teacher Id :"
-                keyboardType="phone-pad"
-              />
-            </>
-          )}
-
-          {role === 'admin' && (
-            <>
-              <TextInput
-                style={styles.input}
-                // onChangeText={onChangeAdminNumber}
-                // value={adminNumber}
-                maxLength={10}
-                mode="outlined"
-                label="Mobile No."
-                placeholder="Enter Admin Mobile Number"
-                keyboardType="phone-pad"
-              />
-
-              <TextInput
-                style={styles.input}
-                // onChangeText={onChangeText}
-                // value={text}
-                placeholder="Enter Admin Id :"
-                keyboardType="phone-pad"
-              />
-            </>
-          )} */}
-
           <TouchableOpacity style={styles.buttonText}>
             <Button title="LogIn" onPress={onLogIn} />
           </TouchableOpacity>
